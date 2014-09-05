@@ -1,12 +1,12 @@
 {
-  "name": "No SOPA",
+  "name": "Potentially Predatory Publications",
   "manifest_version": 2,
-  "version": "1.11",
-  "description": "Be notified if you're visiting the website of a company that supports the dangerous Stop Online Piracy Act legislation.",
+  "version": "1.0",
+  "description": "Be notified if you're visiting the website of a potentially predatory open-access publication, per Beall's list.",
   "background": {"page": "bg.html"},
   "page_action": {
     "default_icon": "icon.png",
-    "default_title": "Known Internet Blacklist Legislation Supporter! Click to toggle this popup."
+    "default_title": "Potentially predatory open-access publication! Click to toggle this popup."
   },
   "permissions": [
     "http://*/",

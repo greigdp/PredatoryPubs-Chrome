@@ -4,6 +4,7 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
     }
 
     var host = getDomain(tab);
+    console.log(host)
     if (domains.indexOf(host) !== -1) {
         if (!isIgnored(host)) {
             chrome.tabs.executeScript(tabId, { file: 'predatory.js' });
@@ -68,7 +69,8 @@ function isIgnored(host) {
 }
 
 function getDomain(tab) {
-    var urlRegex = /^((\w+):\/\/)?((\w+):?(\w+)?@)?([^\/\?:]+):?(\d+)?(\/?[^\?#]+)?\??([^#]+)?#?(\w*)/;
-    var host = tab.url.match(urlRegex)[6].split('.').splice(-2).join('.');
+    //var urlRegex = /^((\w+):\/\/)?((\w+):?(\w+)?@)?([^\/\?:]+):?(\d+)?(\/?[^\?#]+)?\??([^#]+)?#?(\w*)/;
+    var urlRegex = /^[\w-]+:\/*\[?([\w\.:-]+)\]?(?::\d+)?/;
+    var host = tab.url.match(urlRegex)[1].replace("www.","");//[6].split('.').splice(-2).join('.');
     return host;
 }

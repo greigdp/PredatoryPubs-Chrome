@@ -4,7 +4,6 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
     }
 
     var host = getDomain(tab);
-    console.log(host)
     if (domains.indexOf(host) !== -1) {
         if (!isIgnored(host)) {
             chrome.tabs.executeScript(tabId, { file: 'predatory.js' });

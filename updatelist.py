@@ -2,11 +2,18 @@ import urllib2
 from bs4 import BeautifulSoup
 from urlparse import urlparse
 
-response = urllib2.urlopen('http://scholarlyoa.com/individual-journals/')
-html = response.read()
-soup = BeautifulSoup(html)
+journals = urllib2.urlopen('http://scholarlyoa.com/individual-journals/')
+publishers = urllib2.urlopen('http://scholarlyoa.com/publishers/')
+
+
+html_journals = journals.read()
+html_publishers = publishers.read()
+soup = BeautifulSoup(html_journals)
+soup_pub = BeautifulSoup(html_publishers)
 
 predatory = []
+# for the journals
+
 # get all unnumbered lists
 for listitems in soup.find_all('ul'):
     # now get all links that open in new windows
@@ -14,8 +21,21 @@ for listitems in soup.find_all('ul'):
       # now parse the href of these links
       url = urlparse(sites.get('href'))
       # and add the domain name (without www) to the list, if not empty
-      if (url.netloc.replace('www.', '') != ""):
+      if (url.netloc != ""):
           predatory.append(url.netloc.replace('www.', ''))
+
+# for the publishers
+
+# get all unnumbered lists
+relevantblock = soup_pub.find_all('ul')[1]
+# now get all links that open in new windows
+for sites in relevantblock.find_all('a'):
+    # now parse the href of these links
+    url = urlparse(sites.get('href'))
+    # and add the domain name (without www) to the list, if not empty
+    do_not_add = ['', 'scholarlyoa.com', 'wordpress.com', 'scholarlyoa.wordpress.com', 'en.wordpress.com']
+    if (url.netloc.replace('www.', '')) not in do_not_add:
+        predatory.append(url.netloc.replace('www.', ''))
 
 # Now let's get this into a file
 f = open('domains.js', 'w')

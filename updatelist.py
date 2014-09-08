@@ -1,3 +1,16 @@
+"""
+This script fetches Beall's latest list of potentially predatory publishers
+and journals from his website, and parses it to generate a list of such
+domain names. This list can be used with the enclosed Chrome plugin to
+generate a small warning when you browse to a page featured on his list.
+
+Beall's second edition of criteria used is available at
+http://scholarlyoa.com/2012/11/30/criteria-for-determining-predatory-open-access-publishers-2nd-edition/
+
+Run this python script, and domains.js will be updated with the latest list data.
+
+"""
+
 import urllib2
 from bs4 import BeautifulSoup
 from urlparse import urlparse

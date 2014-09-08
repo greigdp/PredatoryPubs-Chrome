@@ -32,7 +32,7 @@ relevantblock = soup_pub.find_all('ul')[1]
 for sites in relevantblock.find_all('a'):
     # now parse the href of these links
     url = urlparse(sites.get('href'))
-    # and add the domain name (without www) to the list, if not empty
+    # and add the domain name (without www) to the list, if not empty, ignore "safe" domain links
     do_not_add = ['', 'scholarlyoa.com', 'wordpress.com', 'scholarlyoa.wordpress.com', 'en.wordpress.com']
     if (url.netloc.replace('www.', '')) not in do_not_add:
         predatory.append(url.netloc.replace('www.', ''))
